@@ -2,7 +2,7 @@
   "name": "todo-backend",
   "version": "1.0.0",
   "description": "Node, express, mongodb, elasticsearch",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
@@ -17,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/MdotB/todo-backend/issues"
   },
-  "homepage": "https://github.com/MdotB/todo-backend#readme"
+  "homepage": "https://github.com/MdotB/todo-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "elasticsearch": "^15.4.1",
+    "express": "^4.16.4",
+    "mongoosastic": "^4.4.1",
+    "mongoose": "^5.5.5"
+  }
 }
