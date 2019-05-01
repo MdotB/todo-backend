@@ -1,55 +1,53 @@
 const router = require('express').Router()
-const Todo = require("../models/Todo")
+const Todo = require("../models/todo")
 
 // Get all transactions
-router.get('/', (req, res) => {
-    Todo.find({})
-        .then(data => {
-            res.json(data)
+router.get('/todos', (req, res) => {
+    Todo.find({}).then(todos => {
+            res.json(todos).send()
             console.log(data)
         })
         .catch(err => {
-            console.log(err)
+            res.status(500).send()
         })
 })
 
 // Get one transaction by ID
-router.get('/:id', (req, res) => {
-    Todo.findById({ _id: req.params.id })
-        .then(data => {
-            res.json(data)
-            console.log(data)
-        })
-        .catch(err => {
-            console.log(err)
+router.get('/todos/:id', (req, res) => {
+    const _id = req.params.id
+    Todo.findById(_id).then(todo => {
+        if (!todo) {
+            return res.status(404).send()
+        }
+
+        res.json(todo).send()
+        }).catch(err => {
+            res.status(500).send()
         })
 })
 
 // Post new transaction
-router.post("/new", (req, res) => {
-    const newTodo = {
-        description: req.body.description,
-        completed: false
-    }
-    Todo.create(newTodo)
-        .then(data => {
-            res.json(data)
-            console.log(data)
-        })
-        .catch(err => {
-            console.log(err)
+router.post("/todos", (req, res) => {
+    const todo = new Todo(req.body)
+    
+    todo.save().then(() => {
+        res.status(201).send(todo)
+    }).catch(err => {
+            res.status(400).send(err)
         })
 })
 
 // Delete transaction by Id
-router.delete('/delete/:id', (req, res) => {
-    Todo.findByIdAndDelete({ _id: req.params.id })
-        .then(data => {
-            res.json(data)
-            console.log(data)
+router.delete('/todos/:id', (req, res) => {
+    const _id = req.params.id
+
+    Todo.findByIdAndDelete(_id)
+        .then(todo => {
+            res.json(todo).send()
+            console.log(todo)
         })
         .catch(err => {
-            console.log(err)
+            res.status(500).send()
         })
 })
 

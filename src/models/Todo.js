@@ -1,9 +1,15 @@
-const mongoose = require('../db/connection');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
 
-const Todo = new Schema({
-    description: String,
-    completed: Boolean
+const Task = mongoose.model('Task', {
+    description: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    completed: {
+        type: Boolean,
+        default: false
+    }
 })
 
-module.exports = mongoose.model('Todo', Todo)
+module.exports = Task
