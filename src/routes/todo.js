@@ -37,6 +37,20 @@ router.post("/todos", (req, res) => {
         })
 })
 
+// Update transaction by Id
+router.patch('/todos/:id', (req, res) => {
+    const _id = req.params.id
+
+    Todo.findByIdAndUpdate(_id, { completed: true})
+        .then(todo => {
+            res.json(todo).send()
+            console.log(todo)
+        })
+        .catch(err => {
+            res.status(500).send()
+        })
+})
+
 // Delete transaction by Id
 router.delete('/todos/:id', (req, res) => {
     const _id = req.params.id
