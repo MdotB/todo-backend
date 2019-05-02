@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const Todo = require("../models/todo.js")
+const Todo = require("../models/Todo")
 
 // Get all transactions
 router.get('/todos', (req, res) => {
